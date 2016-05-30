@@ -1,0 +1,2 @@
+input:
+    each line = 1 training instance of N length (should be able to be variable in length)
