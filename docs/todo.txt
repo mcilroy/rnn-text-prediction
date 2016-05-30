@@ -1,2 +1,13 @@
-input:
-    each line = 1 training instance of N length (should be able to be variable in length)
+feature:
+    add learning rate decay
+        lr_decay = config.lr_decay ** max(i - config.max_epoch, 0.0)
+        m.assign_lr(session, config.learning_rate * lr_decay)
+        def assign_lr(self, session, lr_value):
+            session.run(tf.assign(self.lr, lr_value))
+    add gradient clipping
+        grads, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars), config.max_grad_norm)
+    add multi lstm cells
+
+optimization:
+    added embedding but it slowed things down. Not sure if needed.
+    Refer to https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/recurrent_network.py for the original non-embedding
